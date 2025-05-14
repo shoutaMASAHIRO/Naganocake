@@ -34,7 +34,7 @@ class Admin::ItemsController < ApplicationController
     @item = Item.new(item_params)
     if @item.save
       flash[:success] = "登録成功"
-      redirect_to admin_items_path
+      redirect_to admin_item_path(@item)
     else
       @genre = Genre.all
       render :new  # エラー表示のために @item をビューに渡す

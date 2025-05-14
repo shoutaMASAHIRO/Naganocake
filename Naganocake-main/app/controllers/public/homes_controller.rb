@@ -3,7 +3,13 @@ class Public::HomesController < ApplicationController
 
   def top
     @genres = Genre.only_active.includes(:items)
-    @items = Item.recommended
+     if params[:genre_id]
+      # ジャンルが指定されている場合、かつ販売中の商品だけを取得
+      @items = Item.where(genre_id: params[:genre_id], is_deleted: false).page(params[:page]).per(9)
+    else
+      # ジャンルが指定されていない場合、かつ販売中の商品だけを取得
+      @items = Item.where(is_deleted: false).page(params[:page]).per(9)
+    end
   end
 
   def about

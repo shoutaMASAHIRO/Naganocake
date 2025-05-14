@@ -78,14 +78,14 @@
     <header class="shadow-sm">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-          <a class="navbar-brand p-3" href="/">NaganoCake</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
-              <% if admin_signed_in? %>
+              <% if admin_signed_in? %>    
                 <!-- Admin ログイン時にクラスを付与 -->
+                <a class="navbar-brand p-3" href="/admin">NaganoCake</a>
                 <%= form_with url: admin_items_path, method: :get, class: 'search-form admin-search-form d-flex align-items-center mr-3' do |f| %>
                   <%= text_field_tag :word, params[:word], placeholder: "商品名で検索", class: "form-control mr-2" %>
                   <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]), {}, class: "form-control mr-2" %>
@@ -108,6 +108,12 @@
                 </li>
               <% else %>
                 <% if customer_signed_in? %>
+                <a class="navbar-brand p-3" href="/">NaganoCake</a>
+                <%= form_with url: admin_items_path, method: :get, class: 'search-form admin-search-form d-flex align-items-center mr-3' do |f| %>
+                  <%= text_field_tag :word, params[:word], placeholder: "商品名で検索", class: "form-control mr-2" %>
+                  <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]), {}, class: "form-control mr-2" %>
+                  <%= f.submit "検索", class: "btn btn-primary" %>
+                <% end %>
                 <li class="nav-item">
                   <%= link_to '<i class="fas fa-user"></i> マイページ'.html_safe, my_page_path, class: 'nav-link'%>
                 </li>
